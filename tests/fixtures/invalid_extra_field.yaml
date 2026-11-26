@@ -1,0 +1,2 @@
+command: "./solver"
+unknown_field: this_should_fail

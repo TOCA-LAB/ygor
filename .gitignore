@@ -1,0 +1,7 @@
+/tests/__pycache__
+/src/ygor/__pycache__
+/dist
+.ygorrc.yaml
+.labrc.yaml
+store
+.env

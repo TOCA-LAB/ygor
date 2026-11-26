@@ -1,0 +1,3 @@
+meta:
+  name: no-params
+command: "./solver --input data.txt"

@@ -1,0 +1,79 @@
+meta:
+  name: ils-popsize-sweep
+  description: "Varredura de tamanho de população para o ILS."
+  author: maria.silva@universidade.br
+  created: 2026-05-14
+
+datasets:
+  dimacs-small:
+    source: { type: http, url: "https://example.org/datasets/dimacs-small.tar.gz" }
+    sha256: b50349cde0b74844da1e95007ae38845e93e60acdd75f3d494fe10b1e8ceef22
+    extract: tar.gz
+    include: ["**/*.mtx"]
+
+  random-benchmark:
+    source:
+      type: git
+      url: "https://github.com/example/random-graphs.git"
+      ref: 7d9f3c1ab22d8
+    include: ["instances/**/*.mtx"]
+
+  local-custom:
+    source: { type: local, path: "../../data/custom-instances/" }
+    include: ["*.mtx"]
+
+environment:
+  base-image: "ubuntu@sha256:8f1d7e"
+  variables:
+    CC: gcc
+    OMP_NUM_THREADS: 1
+  resources:
+    cpu: 16
+    memory: 32GB
+  apps:
+    apt:
+      snapshot: 2026-01-10
+      packages:
+        - build-essential=12.10ubuntu1
+    python:
+      requirements: requirements.lock
+    ils-odd-coloring:
+      source:
+        type: git
+        url: "https://github.com/ygor/ils-odd-coloring.git"
+        ref: d19aa73f0
+      build:
+        - "mkdir -p build"
+        - "cd build && cmake -DCMAKE_BUILD_TYPE=Release .."
+      binary: build/bin/ils_solver
+
+command:
+  - >
+    {{ app['ils-odd-coloring'] }}
+    --instance {{ param.instance }}
+    --seed {{ run.seed }}
+    --bola {{ param.popsize }}
+  - "./scripts/parse_result.py --dir {{ run.output_dir }}"
+
+parameters:
+  strategy: cartesian
+  values:
+    popsize: [100, 200, 300]
+    mutation: { from: 0.1, to: 0.5, step: 0.1 }
+    iterations: { from: 10, to: 1000, count: 3, scale: log }
+  instance:
+    - "dataset:dimacs-small/*.mtx"
+    - "dataset:random-benchmark/instances/big/*.mtx"
+  seeds:
+    count: 30
+    meta-seed: 42
+
+policy:
+  timeout-per-run: 30m
+  workers: 16
+  on-failure: continue
+  retries: 1
+  resume: skip-existing
+
+post:
+  - "./scripts/post.py --run {{ run.run_dir }}"

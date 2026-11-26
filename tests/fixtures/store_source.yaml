@@ -1,0 +1,16 @@
+meta:
+  name: paper_v1_aggregation
+
+datasets:
+  popsize_baseline:
+    source: { type: store }
+    hash: a3f2d8c1
+
+environment:
+  base-image: "ubuntu@sha256:8f1d7e"
+  apps:
+    python:
+      requirements: requirements.lock
+
+command:
+  - "./scripts/cross_run_compare.py --baseline {{ dataset['popsize_baseline'] }}"

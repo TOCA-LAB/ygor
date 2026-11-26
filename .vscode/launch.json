@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug ygor resume d76d4b6",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/.vscode/debug_ygor.py",
+      "args": ["resume", "72162f89"],
+      "cwd": "<foo/bar>",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+      },
+      "console": "integratedTerminal",
+      "justMyCode": false
+    }
+  ]
+}

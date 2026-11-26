@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Seu laboratório de experimentos. Explore runs, receitas e resultados locais com o Ygor.">
+  <title>Ygor · Explorer</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="titlebar">
+    <a class="brand" href="#/" aria-label="Ygor, início"><img src="/favicon.svg" alt="" width="34" height="34"><span>Ygor <span class="brand-sub">Explorer</span></span></a>
+    <span class="titlebar-center">Um lugar para seus experimentos</span>
+    <div class="titlebar-actions"><span class="local-label"><span class="connection-dot"></span> Local</span><button class="icon-button" id="theme-button" title="Alternar tema" aria-label="Alternar tema"></button><button class="icon-button" id="refresh-button" title="Atualizar dados" aria-label="Atualizar dados"></button></div>
+  </header>
+  <aside class="sidebar" aria-label="Navegação principal">
+    <div class="workspace"><span class="workspace-icon" id="workspace-icon"></span><div><strong>Meu laboratório</strong><small id="store-name">Carregando store…</small></div></div>
+    <p class="sidebar-label">Biblioteca</p>
+    <a class="nav-item active" href="#/" id="all-runs-nav"><span id="runs-icon"></span><span>Todos os runs</span><span class="nav-count" id="run-count">—</span></a>
+    <p class="sidebar-label">Estado das execuções</p>
+    <nav id="status-nav"></nav>
+    <p class="sidebar-label recipe-label">Receitas <span id="recipe-count"></span></p>
+    <nav class="recipe-nav" id="recipe-nav"></nav>
+    <div class="sidebar-bottom"><span id="readonly-icon"></span><div><strong>Somente leitura</strong><small>Seus dados ficam intactos.</small></div></div>
+  </aside>
+  <main id="main" tabindex="-1"><div class="loading-state"><span class="spinner"></span><p>Abrindo seu laboratório…</p></div></main>
+  <div id="drawer-layer"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

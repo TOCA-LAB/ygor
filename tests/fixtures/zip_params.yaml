@@ -1,0 +1,8 @@
+meta:
+  name: zip-experiment
+command: "./solver --x {{ param.x }} --y {{ param.y }}"
+parameters:
+  strategy: zip
+  values:
+    x: [1, 2, 3]
+    y: [10, 20, 30]
